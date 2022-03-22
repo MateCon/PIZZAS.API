@@ -21,5 +21,11 @@ namespace Pizzas.API.Controllers
         public Pizza GetById(int id) {
             return BD.GetPizzaById(id);
         }
+
+        [HttpPost]
+        public string Create(Pizza pizza) {
+            BD.CreatePizza();
+            return "Pizza created.";
+        }
     }
 }

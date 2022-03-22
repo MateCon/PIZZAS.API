@@ -30,5 +30,16 @@ namespace Pizzas.API.Models
             }
             return pizza;
         }
+
+        // no terminado
+        public static void Create(Pizza pizza) {
+            int registrosCreados = 0;
+            string query = "INSERT INTO Pizzas";
+            using (SqlConnection db = new SqlConnection(_connectionString))
+            {
+                registrosCreados = db.Execute<Pizza>(query, new { pId = id });
+            }
+            return pizza;
+        }
     }
 }
