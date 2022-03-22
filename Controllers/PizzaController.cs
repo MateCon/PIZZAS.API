@@ -12,10 +12,14 @@ namespace Pizzas.API.Controllers
     [Route("api/[controller]")]
     public class PizzaController : ControllerBase
     {
-        [HttpGet]
-        public IEnumerable<Pizza> GetAll()
-        {
+        [HttpGet("all")]
+        public IEnumerable<Pizza> GetAll() {
             return BD.GetAllPizzas();
+        }
+
+        [HttpGet("{id}")]
+        public Pizza GetById(int id) {
+            return BD.GetPizzaById(id);
         }
     }
 }
