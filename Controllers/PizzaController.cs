@@ -12,20 +12,10 @@ namespace Pizzas.API.Controllers
     [Route("api/[controller]")]
     public class PizzaController : ControllerBase
     {
-
         [HttpGet]
-        public IEnumerable<Pizza> Get()
+        public IEnumerable<Pizza> GetAll()
         {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new Pizza
-            {
-                Descripcion = "Con salsa de tomate y queso",
-                Id = 1,
-                Importe = 300,
-                LibreGluten = false,
-                Nombre = "Muzza Individual"
-            })
-            .ToArray();
+            return BD.GetAllPizzas();
         }
     }
 }
