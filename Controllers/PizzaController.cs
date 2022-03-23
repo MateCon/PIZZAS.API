@@ -13,19 +13,31 @@ namespace Pizzas.API.Controllers
     public class PizzaController : ControllerBase
     {
         [HttpGet("all")]
-        public IEnumerable<Pizza> GetAll() {
-            return BD.GetAllPizzas();
+        public IActionResult GetAll() {
+            return Ok(BD.GetAllPizzas());
         }
 
         [HttpGet("{id}")]
-        public Pizza GetById(int id) {
-            return BD.GetPizzaById(id);
+        public IActionResult GetById(int id) {
+            return Ok(BD.GetPizzaById(id));
         }
 
         [HttpPost]
-        public string Create(Pizza pizza) {
-            BD.CreatePizza();
-            return "Pizza created.";
+        public IActionResult Create(Pizza pizza) {
+            int registrosCreados = BD.CreatePizza(pizza);
+            return Ok("Pizza creada.");
+        }
+
+        [HttpDelete("{id}")]
+        public IActionResult DeleteById(int id) {
+            int registrosBorrados = BD.DeletePizza(id);
+            return Ok("Pizza deleted.");
+        }
+
+        [HttpPut("{id}")]
+        public IActionResult Update(int id, Pizza pizza) {
+            int registrosModificados = BD.UpdatePizza(id, pizza);
+            return Ok("Pizza modified.");
         }
     }
 }
