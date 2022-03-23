@@ -19,13 +19,19 @@ namespace Pizzas.API.Controllers
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id) {
-            return Ok(BD.GetPizzaById(id));
+            Pizza pizza = BD.GetPizzaById(id);
+            if(pizza != null) {
+                return Ok(pizza);
+            }
+            return BadRequest("Error");
         }
 
         [HttpPost]
         public IActionResult Create(Pizza pizza) {
-            int registrosCreados = BD.CreatePizza(pizza);
-            return Ok("Pizza creada");
+           if(BD.CreatePizza(pizza) > 0) {
+                return Ok("Pizza creada");
+           }
+           return BadRequest("Error");
         }
 
         [HttpDelete("{id}")]
@@ -38,8 +44,10 @@ namespace Pizzas.API.Controllers
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, Pizza pizza) {
-            int registrosModificados = BD.UpdatePizza(id, pizza);
-            return Ok("Pizza modified");
+            if(BD.UpdatePizza(id, pizza) > 0) {
+                return Ok("Pizza modified");
+            }
+            return BadRequest("Error");
         }
     }
 }
