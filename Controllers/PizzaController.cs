@@ -30,8 +30,7 @@ namespace Pizzas.API.Controllers
 
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int id) {
-            int registrosBorrados = BD.DeletePizza(id);
-            if(registrosBorrados > 0) {
+            if(BD.DeletePizza(id) > 0) {
                 return Ok("Pizza deleted");
             }
             return BadRequest("Error");
