@@ -9,10 +9,9 @@ namespace Pizzas.API.Models
 {
     public static class BD
     {
-        public static SqlConnection GetConfiguration() {
-            SqlConnection db;
-            string connectionString;
-            connectionString = GetConfiguration.GetValue<string>("DatabaseSettings:ConnectionString");
+        public static SqlConnection GetConnection() {
+            // string ConnectionString = ConfigurationHelper.GetConfiguration().GetValue<string>("DatabaseSettings:ConnectionString");
+            string connectionString = "Server=A-CREA-40;DataBase=DAI-Pizzas;Trusted_Connection=True;";
             return new SqlConnection(connectionString);
         }
     }

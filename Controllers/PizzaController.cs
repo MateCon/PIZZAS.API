@@ -15,40 +15,60 @@ namespace Pizzas.API.Controllers
     {
         [HttpGet("all")]
         public IActionResult GetAll() {
-            return Ok(PizzaService.GetAllPizzas());
+            try {
+                return Ok(PizzaService.GetAllPizzas());
+            } catch(Exception error) {
+                return NotFound(error);
+            }
         }
 
         [HttpGet("{id}")]
         public IActionResult GetById(int id) {
-            Pizza pizza = PizzaService.GetPizzaById(id);
-            if(pizza != null) {
-                return Ok(pizza);
+            try {
+                Pizza pizza = PizzaService.GetPizzaById(id);
+                if(pizza != null) {
+                    return Ok(pizza);
+                }
+                return BadRequest("Error");
+            } catch(Exception error) {
+                return NotFound(error);
             }
-            return BadRequest("Error");
         }
 
         [HttpPost]
         public IActionResult Create(Pizza pizza) {
-           if(PizzaService.CreatePizza(pizza) > 0) {
-                return Ok("Pizza creada");
-           }
-           return BadRequest("Error");
+            try {
+                if(PizzaService.CreatePizza(pizza) > 0) {
+                        return Ok("Pizza creada");
+                }
+                return BadRequest("Error");
+            } catch(Exception error) {
+                return NotFound(error);
+            }
         }
 
         [HttpDelete("{id}")]
         public IActionResult DeleteById(int id) {
-            if(PizzaService.DeletePizza(id) > 0) {
-                return Ok("Pizza deleted");
+            try {
+                if(PizzaService.DeletePizza(id) > 0) {
+                    return Ok("Pizza deleted");
+                }
+                return BadRequest("Error");
+            } catch(Exception error) {
+                return NotFound(error);
             }
-            return BadRequest("Error");
         }
 
         [HttpPut("{id}")]
         public IActionResult Update(int id, Pizza pizza) {
-            if(PizzaService.UpdatePizza(id, pizza) > 0) {
-                return Ok("Pizza modified");
+            try {
+                if(PizzaService.UpdatePizza(id, pizza) > 0) {
+                    return Ok("Pizza modified");
+                }
+                return BadRequest("Error");
+            } catch(Exception error) {
+                return NotFound(error);
             }
-            return BadRequest("Error");
         }
     }
 }
